@@ -1,7 +1,7 @@
 <--Création de la  table complexes-->
 DROP TABLE IF EXISTS complexes;
 CREATE TABLE complexes(
-   Id_complexes COUNTER,
+   Id_complexes INT NOT NULL AUTO_INCREMENT,
    nom VARCHAR(50),
    PRIMARY KEY(Id_complexes)
 );
@@ -16,11 +16,10 @@ INSERT INTO complexes VALUES
 <!--Création de la table cinema-->
 DROP TABLE IF EXISTS cinema;
 CREATE TABLE cinema(
-   Id_cinema COUNTER,
+   Id_cinema INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    nom VARCHAR(50),
    adresse VARCHAR(255),
    Id_complexes INT NOT NULL,
-   PRIMARY KEY(Id_cinema),
    FOREIGN KEY(Id_complexes) REFERENCES complexes(Id_complexes)
 );
 <!--intégration de donnée fictive-->
@@ -31,11 +30,10 @@ INSERT INTO cinema VALUES
 <!--Création de la table film-->
 DROP TABLE IF EXISTS film;
 CREATE TABLE film(
-   Id_film COUNTER,
+   Id_film INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    titre VARCHAR(50),
    duree TIME,
    synopsie VARCHAR(50),
-   PRIMARY KEY(Id_film)
 );
 <!--intégration de donnée fictive-->
 INSERT INTO film VALUES
@@ -45,9 +43,8 @@ INSERT INTO film VALUES
 <!--Création de la table prix-->
 DROP TABLE IF EXISTS prix;
 CREATE TABLE prix(
-   Id_tarif COUNTER,
+   Id_tarif INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    prix DECIMAL(3,2),
-   PRIMARY KEY(Id_tarif)
 );
 <!--intégration de donnée fictive-->
 INSERT INTO prix VALUES
@@ -57,11 +54,10 @@ INSERT INTO prix VALUES
 <!--Création de la table salle-->
 DROP TABLE IF EXISTS salle;
 CREATE TABLE salle(
-   Id_salle COUNTER,
+   Id_salle INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    places INT,
    nom VARCHAR(50),
    Id_cinema INT NOT NULL,
-   PRIMARY KEY(Id_salle),
    FOREIGN KEY(Id_cinema) REFERENCES cinema(Id_cinema)
 );
 <!--intégration de donnée fictive-->
@@ -75,9 +71,8 @@ INSERT INTO salle VALUES
 <!--Création de la table role-->
 DROP TABLE IF EXISTS role;
 CREATE TABLE role(
-   Id_role COUNTER,
+   Id_role INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    fonction VARCHAR(50),
-   PRIMARY KEY(Id_role)
 );
 <!--intégration de donnée fictive-->
 INSERT INTO role VALUES
@@ -86,11 +81,10 @@ INSERT INTO role VALUES
 <!--Création de la table sceance-->
 DROP TABLE IF EXISTS sceance;
 CREATE TABLE sceance(
-   Id_sceance COUNTER,
+   Id_sceance INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    début TIME,
    fin VARCHAR(50),
    Id_salle INT NOT NULL,
-   PRIMARY KEY(Id_sceance),
    FOREIGN KEY(Id_salle) REFERENCES salle(Id_salle)
 );
 <!--intégration de donnée fictive-->
@@ -104,10 +98,9 @@ INSERT INTO sceance VALUES
 <!--Création de la table client-->
 DROP TABLE IF EXISTS client;
 CREATE TABLE client(
-   Id_client COUNTER,
+   Id_client INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    numéro INT,
    Id_tarif INT NOT NULL,
-   PRIMARY KEY(Id_client),
    UNIQUE(numéro),
    FOREIGN KEY(Id_tarif) REFERENCES prix(Id_tarif)
 );
@@ -119,12 +112,11 @@ INSERT INTO client VALUES
 <!--Création de la table employer-->
 DROP TABLE IF EXISTS employer;
 CREATE TABLE employer(
-   Id_employer COUNTER,
+   Id_employer INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    nom VARCHAR(50),
    prenom VARCHAR(50),
    Id_role INT NOT NULL,
    Id_complexes INT NOT NULL,
-   PRIMARY KEY(Id_employer),
    FOREIGN KEY(Id_role) REFERENCES role(Id_role),
    FOREIGN KEY(Id_complexes) REFERENCES complexes(Id_complexes)
 );
@@ -138,7 +130,6 @@ DROP TABLE IF EXISTS diffuser;
 CREATE TABLE diffuser(
    Id_film INT,
    Id_salle INT,
-   PRIMARY KEY(Id_film, Id_salle),
    FOREIGN KEY(Id_film) REFERENCES film(Id_film),
    FOREIGN KEY(Id_salle) REFERENCES salle(Id_salle)
 );
@@ -152,7 +143,6 @@ DROP TABLE IF EXISTS couter;
 CREATE TABLE couter(
    Id_tarif INT,
    Id_sceance INT,
-   PRIMARY KEY(Id_tarif, Id_sceance),
    FOREIGN KEY(Id_tarif) REFERENCES prix(Id_tarif),
    FOREIGN KEY(Id_sceance) REFERENCES sceance(Id_sceance)
 );
