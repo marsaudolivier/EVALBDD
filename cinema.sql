@@ -33,7 +33,7 @@ CREATE TABLE film(
    Id_film INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    titre VARCHAR(50),
    duree TIME,
-   synopsie VARCHAR(50),
+   synopsie TEXT,
 );
 <!--intégration de donnée fictive-->
 INSERT INTO film VALUES
@@ -82,8 +82,8 @@ INSERT INTO role VALUES
 DROP TABLE IF EXISTS sceance;
 CREATE TABLE sceance(
    Id_sceance INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   début TIME,
-   fin VARCHAR(50),
+   début DATETIME,
+   fin DATETIME,
    Id_salle INT NOT NULL,
    FOREIGN KEY(Id_salle) REFERENCES salle(Id_salle)
 );
